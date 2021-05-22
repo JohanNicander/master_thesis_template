@@ -1,6 +1,6 @@
 % BASIC SETTINGS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[english]{babel}			% Language settings
+\usepackage[english]{babel}		    % Language settings
 \usepackage[utf8]{inputenc}			% Input settings
 \usepackage[T1]{fontenc}			% Output settings
 \usepackage{lmodern}				% Latin modern font
@@ -34,9 +34,11 @@
 % TABLES
 \usepackage{array}                  % (TODO)
 \usepackage{tabularx}               % (TODO)
-\usepackage{booktabs}               % (TODO)
-\usepackage{hhline}                 % Double horizontal lines in table
 \usepackage{diagbox}                % Slash in tables
+\usepackage{booktabs}               % Improved rules in tables
+
+% Reduce weight of top and bottom rules
+\setlength{\heavyrulewidth}{0.075em}
 
 % TABLE LAYOUT (optional)
 \newcolumntype{C}{>{\centering\arraybackslash}X}
@@ -45,15 +47,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CAPTION LAYOUT
-\usepackage{caption}
-\captionsetup{
+\usepackage[
     labelfont       = bf,
-    font            = footnotesize,
-    textfont        = normal,
-    width           = .95\textwidth,
+    font            = normalsize,
+    width           = 0.92\textwidth,
     justification   = justified,
     singlelinecheck = true
-}
+]{caption}
+% NOTE: Consider matching the caption font size (normalsize above)
+% to the font size in the figure/table. \captionsetup can be used
+% to change settings locally.
 
 % Caption for subfigures (optional)
 % \usepackage{subcaption}
@@ -136,41 +139,29 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FOOTNOTE LAYOUT
-\usepackage[bottom, hang, symbol*]{footmisc}
-% space before footnote text (0pt for marker width):
-\setlength{\footnotemargin}{0pt}
-% Might be preferable for multi-paragraph footnotes:
-%\setlength{\footnotesep}{\baselineskip}
-% Also, handling of \footnote{}\footnote{} can be improved.
+\usepackage[bottom, hang]{footmisc}
+% The multiple option does not seem to work. It should produce commas
+% between markers in cases like "Lipsum\footnote{Foo}\footnote{Bar}".
+% For now, use the following:
+\newcommand{\footnotemarksep}{\textsuperscript{,}}
+% A better approach might be: https://tex.stackexchange.com/a/62091
 
-% Change the width of the ruler above footnotes
+% Change the width of the ruler above footnotes:
 \renewcommand*\footnoterule{\rule[2pt]{\textwidth}{0.5pt}}
 
-% footnote symbols or numbers
-\newcommand{\thesisFootnoteStyle}{n} % 'n' for numbers, 's' for symbols
+% Space before footnote text (0pt for marker width):
+\setlength{\footnotemargin}{0pt}
 
-\if\thesisFootnoteStyle n
-    \renewcommand{\thefootnote}{\arabic{footnote}}
-\fi
+% Might be preferable for multi-paragraph footnotes:
+%\setlength{\footnotesep}{\baselineskip}
 
-\if\thesisFootnoteStyle s
-    \renewcommand{\thefootnote}{\fnsymbol{footnote}}    % symbols
-    \setfnsymbol{wiley}
-
-    % Footnote ordering restarts every page
-    \usepackage{perpage}
-    \MakePerPage{footnote}
-    \setcounter{footnote}{0}
-
-    % Remove counter "footnote" from the reset counter list
-    % of counter "chapter".
-    \makeatletter
-    \@removefromreset{footnote}{chapter}
-    \makeatother
-\fi
+% For footnote symbols instead of numbers, use options symbol*
+% and perpage with footmisc.
+% To change symbol set, use e.g.: \setfnsymbol{wiley}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BLANK LINE AND SPACING
+\usepackage[raggedright]{titlesec}
 \usepackage{parskip}				% Enables vertical spaces correctly
 
 \setlength{\parindent}{0pt}
@@ -195,7 +186,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TITLE AND TOC LAYOUT
-\usepackage{titlesec}
 \usepackage{titletoc}
 \usepackage[title]{appendix}
 
@@ -209,7 +199,7 @@
 \ifnum\thesisChapterStyle=1
     \titleformat{\chapter}[hang]{\fontsize{30}{10}\selectfont}
     {{\fontsize{30pt}{1em}\vspace{-5.2ex}\selectfont \textnormal{\thechapter. \hspace{1pt}}}}
-    {.5ex}{}[\rule{\textwidth}{0.3pt}]
+    {.5ex}{\raggedright}[\rule{\textwidth}{0.3pt}]
     \titlespacing{\chapter}{0pt}{0pt}{\parskip}
 \fi
 
@@ -305,19 +295,14 @@
     citecolor   = blue,
     anchorcolor = blue,
 ]{hyperref}
-\usepackage{url}                    % Clickable url links
-\usepackage[nameinlink]{cleveref}   % Clever references
+\usepackage{url}                                        % Clickable url links
+\usepackage[capitalise,noabbrev,nameinlink]{cleveref}   % Clever references
 % optional: [nameinlink], makes e.g. "Table" part of the link
 % Note: use \cpageref to reference pages with correct hyperlinks
 
 % CREF
-\crefname{figure}{Figure}{Figures}
-\crefname{equation}{}{}
-\crefname{table}{Table}{Tables}
-\crefname{section}{Section}{Sections}
-\crefname{appendix}{Appendix}{Appendices}
 \crefname{enumi}{Objective}{Objectives}
-\Crefname{enumi}{Objective}{Objectives}
+\crefname{equation}{}{}  % "(1.1)" instead of "Equation (1.1)"
 
 % NUMBERING:
 \numberwithin{equation}{chapter}    % Numbering order for equations
