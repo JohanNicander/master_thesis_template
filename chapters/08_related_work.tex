@@ -1,0 +1,92 @@
+\chapter{Related Work}
+\label{sec:related_work}
+% A narrow but deep comparison is made between system X and its main rivals at their critical points of difference. It is logically part of the evaluation, since it establishes the originality of your contribution. You should explain the differences in behaviour, coverage, efficiency, etc that were identified in the evaluation. Note that related work is different in purpose, position, breadth and depth from the literature survey; both are needed.
+In this section, we present a deeper comparison with the two articles from the literature review that also generate weekly plans. 
+First, we will compare GERT to the artificial sports trainer (AST) presented in Fister et al.~\cite{fister2019generating}.
+Since both models use Stochastic optimization algorithms to create training plans based on historical activities, it makes for an interesting comparison.
+We then make a comparison with the training plan generator from Sreik et al. that uses numerical planning to produce training plans for kickboxers~\cite{skerik2018automated}.
+
+\section{GERT vs AST}
+The first step of the model presented by Fister was to cluster the historical sessions together based on duration and average heart rate.
+This might be compared to our categorization of sessions into labels.
+The major difference between the two approaches is that Fister et al. clustered sessions in the time-heart rate-space whereas we categorized sessions based on in which intensity zone the majority of the training load was performed.
+% Both methods have their benefits and pitfalls.
+Fister et al.'s approach made it necessary to manually evaluate the clustering to find a reasonable number of clusters, make sure that the clusters did split groups of data points that should be kept together, and that clusters do not stretch too far across the space.
+For our work, the categorization used predefined session groups and utilized the already known physiological characteristics of those groups to distinguish between the data points.
+For this work, this approach was necessary since the input to GERT is specified as the number of sessions of a certain type, and strengthened the interpretability and connection to the final use case.
+% The AST has a continuous intensity and volume distribution, given that their measure of volume is time, which helps when clustering sessions together using a KNN algorithm.
+% One might argue that a similar approach could have been taken for GERT, but this would contradict with the usability factor of the model, as the session input specified by the coach is in number of sessions of a certain type. It was therefore important to find a way of mapping the sessions to the predefined groups rather than creating new ones.
+
+Further, to find the sessions of the week two different approaches are taken.
+Fister et al. used 6 different stochastic algorithms, Differential Evolution (DE), self-adaptive Differential Evolution (jDE), Bat Algorithm (BA), Hybrid Bat Algorithm (HBA), Particle Swarm Optimization (PSO), and Firefly Algorithm (FA), to find the number of training sessions to perform from each cluster.
+The optimization problem was formulated as a minimization of $er^\ast$, defined as
+\begin{equation}
+    er^\ast = \min |K - hr|\,, \\
+\end{equation}
+subject to
+\begin{equation}
+\begin{split}
+    &hr \leq K \ \mathrm{and}\\
+    &\sum_{i=1}^n y_i = D\,,
+\end{split}
+\end{equation}
+where 
+\begin{equation}
+    hr= \frac{1}{n} \cdot \sum_{i=1}^n \overline{HR}_i \cdot y_i \,,
+\end{equation}
+$K$ specifies the maximum intensity of the training cycle, $n$ is the number of clusters, $y_i$ is the number of sessions from cluster $i$ and $\overline{HR}_i$ is the average heart of cluster $i$. $D$ is the number of training sessions in the cycle.
+
+Infeasible solutions are repaired using an algorithm that swaps the number of sessions from the different clusters until a feasible solution is found or the solution is discarded.
+In contrast, GERT is given the number of training sessions of each type by the coach.
+
+Next, the sessions are distributed across the week.
+Fister et al. iterates over the clusters and uniformly distributes the sessions from each cluster over the same range for all clusters.
+% The sessions are then sorted based on their attained value of the space.
+For example, if a week has 1 session of type $C_1$, two sessions of type $C_2$ and 4 sessions of type $C_3$ order would be $C_3, C_2, C_3, C_1, C_3, C_2, C_3$.
+We believe that the motivation for this is that the authors want to spread out similar sessions as much as possible to achieve variation.
+However, combined with an increasing number of clusters this can have detrimental effects.
+Consider a week with two high-intensity sessions. 
+If they belong to the same cluster they would be evenly distributed across the week, achieving the desired effect.
+If they instead belong to two different clusters the sessions would be placed back-to-back in the middle of the week.
+Contrasting this with how GERT would try to infer the weekly training load distribution and sequence of session types from the coach's historical training plans.
+
+Once the session distribution was in place the next step was to populate the week with sessions from a session library.
+GERT uses a Genetic algorithm combined with relaxed constraints to do this.
+Fister et al. once again uses constrained stochastic optimization, using the same algorithms as in the first step, to find the sessions in the specified cluster that will maximize the $TRIMP^\ast$ calculated as
+\begin{equation}
+    TRIMP^\ast = \sum_{j=1}^D hr(x_{ij}) \cdot td(x_{ij})\,,
+\end{equation}
+where $hr(x_{ij})$ is the average heart rate and $td(x_{ij})$ duration of session $x_{ij}$.
+Both values have to lie within a boundary that is specified by the authors.
+The boundary is set for each cluster individually and based on their characteristics in terms of $hr$ and $td$.
+
+The quality of a training plan is measured as
+
+\begin{equation}
+    r = \frac{\text{TRIMP}^{\ast}_{\text{model}}}{\text{TRIMP}^{\ast}_{\text{human}}} * 100
+\end{equation}
+
+Where $\text{TRIMP}^{\ast}$ is the total training load of the week.
+The results show that the model in some cases can generate plans with $90 \leq r \leq 110$, which corresponds to a 90\% match with the training load of a human coach.
+
+The major difference between the AST by Fister and the GERT model lies in the goal of the model.
+The goal of Fister et al. is to showcase several different stochastic algorithms and show that these can be used to generate training plans.
+Little focus is put on making sure that the quality of the training plans is high, but rather that many new algorithms can be utilized to generate training plans.
+GERT, on the other hand, tries to imitate a specific coach and how that coach would plan the training, which can be considered a more complex task than only generating training plans.
+Our work also focuses intently on the details of the training plan, trying not only to create them but to make sure that they are similar to what the specific coach would do.
+
+\section{GERT vs LPG planner}
+
+The work of Skerik et al.~\cite{skerik2018automated} differs drastically in approach to our work even though the problems addressed are somewhat similar.
+Their goal is to automatically create training plans for kickboxers that focus on the physical aspect of training, where an athlete wants to improve their general fitness.
+Skreik et al. do not use the notion of training load but instead consider the training as a set of exercises each simultaneously targeting an energy system (aerobic, anaerobic), a muscle ability (strength, endurance, explosivity), and a muscle group (upper limbs, lower limbs, mid-body).
+Training plans are then generated in such a way that all combinations of energy systems, muscle abilities, and muscle groups are covered and appropriate rest is attained before training similar combinations again.
+To personalize the training the athletes are tested and the algorithm should then assign the right types of sessions to improve areas where an athlete tested poorly.
+
+Skerik et al. formally specify the different relations between all of the sessions and targets using the Planning Domain Definition Language (PDDL).
+They then utilize the existing numerical planner LPG that is described in Gerevini to find the best solutions~\cite{gerevini2003planning}.
+
+The quality of the training plans was evaluated by having a coach look at the training plans. The coach indicated that the generated training plans are of good quality and could be of help to their work.
+
+This could be compared with deciding which types of sessions an athlete should perform during a week in the GERT model and in what order they should be performed.
+In GERT the number of sessions is given as an input to the algorithm, while the order of sessions is learned from historical data.

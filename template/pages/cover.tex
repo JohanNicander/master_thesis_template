@@ -25,12 +25,13 @@ Undefined Thesis type in settings.tex
     \vtop{
         \null\vspace{-25mm}
         \centerline{\includegraphics[width=1.18\textwidth]{template/figures/GrayHeaderPattern.jpg}}
-        \vspace{-2.3cm}
-        \hbox{\hspace{0mm}\includegraphics[height=18mm]{template/figures/AvancezChalmersU_white_right.eps}}
+        \vspace{-2.1cm}
+        \hbox{\hspace{0mm}\includegraphics[width=1.01\textwidth]{template/figures/EN_White_Chalmers_GU-eps-converted-to.pdf}}
+        \vspace{3.7mm}
         \centerline{\textcolor{headerBrown}{\rule{1.18\textwidth}{4pt}}}
-        \vspace{\paperheight}\vspace{-85mm}
-        \centerline{\textcolor{thesisHeaderColor}{\rule{1.1\textwidth}{0.8pt}}} % Rule after Department
-        \vspace{-\paperheight}\vspace{85mm}
+        % \vspace{\paperheight}\vspace{-85mm}
+        % \centerline{\textcolor{thesisHeaderColor}{\rule{1.1\textwidth}{0.8pt}}} % Rule after Department
+        % \vspace{-\paperheight}\vspace{85mm}
     }
     \fi
     \if\thesisType B
@@ -47,21 +48,21 @@ Undefined Thesis type in settings.tex
     \fi
 \fi
 
+\vfill
 % Cover picture
 \ifx\thesisCoverFigure\undefined
 \else
     \begin{figure}[H]
     \centering
-    \vspace{1cm}	% Adjust vertical spacing here
-    \includegraphics[width=0.9\linewidth]{\thesisCoverFigure}
+    \includegraphics[width=\textwidth]{\thesisCoverFigure}
     \end{figure}
 \fi
 
 % Cover text
-\mbox{}
 \vfill
 \renewcommand{\familydefault}{\sfdefault} \normalfont % Set cover page font
-\textbf{{\Huge 	\thesisTitle}} 	\\[0.5cm]
+
+\textbf{{\Huge \thesisTitle}} 	\\[0.5cm]
 {\Large \thesisSubtitle}\\[0.4cm]
 \if\thesisType M
     Master's thesis in
@@ -70,6 +71,7 @@ Undefined Thesis type in settings.tex
 \fi
 \thesisMasterProgramme \setlength{\parskip}{1cm}
 
+\vfill
 
 \noindent
 {\Large \MakeUppercase{\thesisAuthor}}
@@ -78,13 +80,20 @@ Undefined Thesis type in settings.tex
     \vspace{6cm}  % increase space if there is no figure
 \fi
 
+\vfill
+
 \noindent
 \textcolor{thesisHeaderColor}{\small\textbf{\MakeUppercase{\thesisDepartment}}}
+
+\vspace{-2.5mm}
+\centerline{\textcolor{thesisHeaderColor}{\rule{1.1\textwidth}{0.8pt}}} % Rule after Department
+
 \setlength{\parskip}{1mm}
 
 {\small \MakeUppercase{\thesisUniversity}} \\
-{\small \thesisLocation\ \thesisYear \\
-\href{\thesisUniversityURL}{\textcolor{black}{\thesisUniversityURL}}}\vspace{1.7cm}
+{\small \thesisLocation\ \thesisYear}
+% \href{\thesisUniversityURL}{\textcolor{black}{\thesisUniversityURL}}}
+\vspace{1.7cm}
 
 \renewcommand{\familydefault}{\rmdefault} \normalfont % Reset standard font
 \end{titlepage}

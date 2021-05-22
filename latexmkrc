@@ -1,0 +1,1 @@
+END { system ('detex main.tex > plain.txt'); }

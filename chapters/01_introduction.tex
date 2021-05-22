@@ -1,0 +1,57 @@
+\chapter{Introduction}
+%The main purpose of the introduction is to motivate the contribution of the paper and to place it in context. It should also restate the hypothesis and summarise the evidence. It traditionally ends with a short summary of the rest of the paper.
+
+The goal of training in any sport is to improve an athlete's physical, technical, and psychological attributes.
+At elite levels, it is also important to reach peak performance at the right time, usually a competition.
+In endurance sports, these goals are achieved through periodization, that is, cycling the training load, and tapering, which means decreasing the training load leading up to a competition \cite{bompa1983theory, mujika1995effects}.
+Periodized training plans consider multiple sub-plans at different levels of abstraction.
+The sub-plans range from coarse long term plans for an entire season down to detailed plans specifying what should be done each session of a week.
+
+Optimal training planning is a combination of art and science, and a task that requires expert knowledge \cite{issurin2010new,smith2003framework}.
+Sport-specific demands must be taken into consideration, such as the athlete’s individual profile, long- and short-term planning, and daily readiness.
+This is a very time-consuming task and something that is often exclusively available to professional athletes at the highest level.
+Many athletes outside the elite do not have access or cannot afford to hire a professional coach to help them create their training plans.
+
+Athletes and coaches at the highest level often log details of training sessions, resulting in substantial amounts of data.
+Previous work has both quantified training load and modeled performance based on this \cite{banister1991modeling, busso1997modeling, mujika1996modeled}.
+The performance model has since been used to find the optimal training load over an entire season and the most effective patterns of tapering \cite{busso2006using, thomas2008model, thomas2009computer}.
+There is, however, little work that focuses on how to create a detailed plan for a week of training, and the existing work has focused on general training planning rather than trying to mimic the style of a certain coach \cite{fister2019generating,skerik2018automated}.
+Furthermore, to the extent of our knowledge, no attempt has been made to automate the generation of training plans for swimmers.
+
+In this study, we investigate if it is possible to use the historical training logs of elite swimmers to construct a detailed weekly training plan similar to how a specific professional coach would have planned.
+Our work aims to automate the process of producing training plans similar to those by a professional coach, with the vision of making individualized high-quality training plans available to athletes who do not have access to a professional coach.
+
+To achieve this, we build a system that produces detailed weekly training plans for swimmers, including specified training load for different intensities, and train it on data of elite swimmers supplied by SVEXA\footnote{\href{https://www.svexa.com}{Link to the Home Page of SVEXA's Website}}.
+We introduce the Genetic and Random Trees training planner (GERT).
+GERT uses historical training logs to produce a session library and learn the style of a coach.
+It does so by first analyzing the training logs for what sequences of training sessions the coach uses, and also how the coach distributes the training load over the weeks.
+It then uses a genetic algorithm to populate the week with sessions from a curated library of historical sessions according to the patterns found in the previous stage and the constraints given as input.
+
+The results show that using the training logs we are able to produce highly accurate training plans in terms of attaining the same training load, structure and types of sessions as the training plans produced by the human coach.
+An oracle version of the model shows that further improvements can be made by more accurately predicting the weekly distribution of training load.
+The presented model can potentially be used by professional trainers to create drafts of training plans that can then be adapted based on daily form, or as a tool for athletes that do not have access to a professional coach.
+
+\section{Thesis Overview}
+In the chapter \textit{Literature Survey and Background}, an overview of the fields of exercise science and training planning is given.
+This chapter also presents the relevant background needed for a good understanding of the rest of the thesis.
+
+Next, in the chapter \textit{Specification}, the goals of this work are stated and 6 concrete objectives that should be fulfilled for this work to be considered successful are presented.
+The chapter goes on to present the limitations of this work, together with the restrictions and assumptions made.
+Finally, some qualitative and ethical restrictions imposed by the data set are highlighted. 
+
+In the chapter \textit{Implementation}, the main solution, that achieves the set goals, is outlined and explained.
+First off, the procedure to clean the data used, as well as its structure and main characteristics, is presented.
+Then the metrics used are mathematically defined and motivated from the point of view of the objectives.
+Lastly, the main model, together with the models that it will be compared against, is thoroughly described and explained.
+
+In the \textit{Evaluation} chapter, an overview of the experiments is presented and their results, together with highlights of important findings, showcased.
+The results are then discussed, focusing on how the new model performed and how it compared to the other models, as well as the effects of some of the assumptions made, and also where there is room for improvement.
+
+In the chapter \textit{Related Work}, a comparison between our new model and previous work from the field is presented.
+The two other works are explained and their differences compared to the new model are highlighted.
+
+Next, in the chapter \textit{Further Work}, the possible extensions of this work that are believed to contribute most to the field of automated training planning are presented. 
+
+Finally, in the \textit{Conclusion} chapter, the goals of the thesis are restated, the thesis summarized, the most important results reiterated, and the conclusions drawn from the findings presented.
+
+

@@ -10,6 +10,10 @@
 \copyright~\thesisAuthor, \thesisYear. \setlength{\parskip}{1cm}
 
 \if\thesisType M
+    Advisor:
+\fi
+\thesisAdvisor\\
+\if\thesisType M
     Supervisor:
 \else
     Handledare:
@@ -29,12 +33,12 @@
 \fi
 \thesisYear\\
 \thesisDepartment\\
-\thesisDivision\\
+%\thesisDivision\\
 \ifx\thesisGroup\undefined
 \else
 \thesisGroup\\
 \fi
-\thesisUniversity\\
+Chalmers University of Technology and University of Gothenburg\\
 \thesisImprintLocation\\
 \if\thesisType M
     Telephone:

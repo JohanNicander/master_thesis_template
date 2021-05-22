@@ -7,6 +7,12 @@
 \usepackage{textcomp}				% Fonts, symbols etc.
 \usepackage[top=3cm, bottom=3cm, inner=3cm, outer=3cm]{geometry}
 
+\usepackage[english=usenglishmax]{hyphsubst}
+\usepackage{microtype}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{subcaption}
+\usepackage{placeins}               % Float barriers
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MATHS
 \usepackage{amsmath}				% Mathematical expressions
@@ -28,14 +34,14 @@
 % TABLES
 \usepackage{array}                  % (TODO)
 \usepackage{tabularx}               % (TODO)
+\usepackage{booktabs}               % (TODO)
 \usepackage{hhline}                 % Double horizontal lines in table
 \usepackage{diagbox}                % Slash in tables
 
 % TABLE LAYOUT (optional)
-%\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
-%\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
-%\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
-%\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CAPTION LAYOUT
@@ -64,6 +70,8 @@
 \usepackage[
     backend     = biber,
     style       = ieee,
+    bibstyle    = ieee,
+    citestyle   = numeric-comp,
     dashed      = false,
     maxnames    = 6,
     natbib      = true,
@@ -79,6 +87,8 @@
 
 \addbibresource{references.bib}
 
+\emergencystretch=1em
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SI UNITS
 \usepackage{siunitx}
@@ -86,10 +96,11 @@
 \sisetup{output-decimal-marker={.}}
 \sisetup{exponent-product={\cdot}}
 \sisetup{range-phrase=--}
+\sisetup{range-units=single}
 \sisetup{per-mode=symbol}
-\sisetup{separate-uncertainty=true}
-%\sisetup{round-mode=places,round-precision=3}
-%\sisetup{parse-numbers = false}
+% \sisetup{separate-uncertainty=true}
+% \sisetup{round-mode=places,round-precision=3}
+% \sisetup{parse-numbers = false}
 
 %Speed of light and eV per speed of light
 \DeclareSIUnit\clight{\text{\ensuremath{c}}}
@@ -305,6 +316,8 @@
 \crefname{table}{Table}{Tables}
 \crefname{section}{Section}{Sections}
 \crefname{appendix}{Appendix}{Appendices}
+\crefname{enumi}{Objective}{Objectives}
+\Crefname{enumi}{Objective}{Objectives}
 
 % NUMBERING:
 \numberwithin{equation}{chapter}    % Numbering order for equations

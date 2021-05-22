@@ -1,0 +1,23 @@
+\chapter{Conclusion}
+% The conclusion should both summarise the research and discuss its significance.
+% This includes a brief restatement of the hypothesis and the evidence for and against it. It should then recapitulate the original motivation and reassess the state of the field in the light of this new contribution
+We set out to create a system that produces detailed weekly training plans for swimmers so that high-quality training programs can be made available to athletes that do not have access to a professional coach. 
+
+To achieve this, 6 objectives were established.
+Accomplishing these would ensure that the generated training plan has the training load, types of sessions, and order needed to be considered similar to that of the human coach.
+
+We specified a loss function based on the 6 objectives and used it as a metric for comparing training plans and a minimization target for an optimization model.
+As a first step, a baseline was established.
+The model used for this was based on the idea of k-nearest neighbors and produced training plans by locating and returning the historic training plan from the most similar situation.
+
+Next, we presented the genetic and random trees (GERT) training planner.
+The first stage of GERT consists of a random forest regressor chain that learns how the coach would distribute the training loads based on historical training logs. In this stage, GERT also saves continuous triplets of session types that can then be used to order the sessions.
+To generate a training plan, GERT will find a combination of sessions from the library that best resembles the learnt and specified information for the week.
+
+Our results show that we, using GERT, can produce training plans similar to those of the human coach in terms of attained training load, structure, and types of sessions.
+The results also show that GERT in terms of the aforementioned loss function outperforms the baseline model and is better than a model returning static historical plans could ever be on this data set.
+An oracle version of the model shows that further improvements can be made by more accurately predicting the weekly distribution of training load.
+
+GERT's intended users are athletes that do not have access to a professional coach or professional trainers who GERT can help lighten the workload and expand the number of athletes that they can coach.
+Further, by combining GERT with previous works that optimize the training loads, such as the model by Kumyaito \cite{kumyaito2018planning}, it would be possible to create a pipeline that generates complete, detailed individualized training plans.
+Although there is work left to be done, we have taken the first step towards automating individualized plans according to expert coaching knowledge and making individualized coaching, which is normally only available for top-tier athletes, more broadly available.

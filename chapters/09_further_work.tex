@@ -1,0 +1,21 @@
+\chapter{Further Work}
+% Some unexplored avenues of the research and new directions that have been suggested by the research are identified and briefly developed. In particular, any research that would improve the evidence for/against the hypothesis or increase its strength or scope should be highlighted.
+
+In this thesis, we have investigated whether it is possible to mimic how a specific coach would plan a weekly training schedule.
+The system is flexible and can be easily extended with additional sessions to choose from (e.g. sessions suitable for recreational athletes).
+We believe that our method can be easily adapted to produce a system that generates training plans for other coaches, athletes, and endurance sports.
+Since our data set has only consisted of training from a single coach, athlete group, and sport we have not been able to investigate to what extent this is true.
+We suggest further investigation of other applications of the method presented in this thesis to see what generalizations are possible.
+
+Based on the result comparison between GERT and its oracle counterpart it is clear that the model predicting the weekly distribution of training load could be improved.
+Our suggested approach is to remove the assumption of independence between training weeks and also utilize stronger dependence between the sessions within the week.
+For the first part, information about the surrounding weeks could be used in the predictions of the current week's training.
+For the second part, a more complex multivariate regression model to predict the workload distribution could be utilized.
+
+With the solely quantitative measures that were defined in this study, it is hard to fully and correctly evaluate a training plan.
+Our experiments showed that the defined metrics are sometimes insufficient. 
+For example, it heavily punishes a training week that has the right structure but is shifted slightly in time.
+Our suggestion is to explicitly investigate how to extract patterns from historical data, create and incorporate findings into metrics and heuristics, and how to algorithmically extract and include the knowledge of coaches and domain experts into the evaluations of the models.
+
+The work made in this thesis is based on a data set consisting of training logs with the assumption that the planned training, performed training, and reported training are all equivalent.
+To further strengthen the hypothesis that it is possible to learn how a specific coach would plan a week of training, the system should be applied to a data set of actual plans, rather than aggregated training logs.
